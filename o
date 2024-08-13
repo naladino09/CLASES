@@ -1,0 +1,70 @@
+CREATE TABLE Estudiante (
+    id VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(100),
+    edad VARCHAR(10),
+    matricula_id VARCHAR(50),
+    FOREIGN KEY (matricula_id) REFERENCES Matricula(id)
+);
+
+CREATE TABLE Matricula (
+    id VARCHAR(50) PRIMARY KEY,
+    fecha DATE,
+    estado VARCHAR(20),
+    estudiante_id VARCHAR(50),
+    asignatura_codigo VARCHAR(50),
+    costos_id INT,
+    FOREIGN KEY (estudiante_id) REFERENCES Estudiante(id),
+    FOREIGN KEY (asignatura_codigo) REFERENCES Asignatura(codigo),
+    FOREIGN KEY (costos_id) REFERENCES Costos(id)
+);
+
+CREATE TABLE Asignatura (
+    codigo VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(100),
+    creditos INT,
+    creditos_id INT,
+    horario_id INT,
+    profesor_id VARCHAR(50),
+    aula_numero VARCHAR(50),
+    FOREIGN KEY (creditos_id) REFERENCES Creditos(id),
+    FOREIGN KEY (horario_id) REFERENCES Horario(id),
+    FOREIGN KEY (profesor_id) REFERENCES Profesor(id),
+    FOREIGN KEY (aula_numero) REFERENCES Aula(numero)
+);
+
+CREATE TABLE Costos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    monto FLOAT,
+    fecha DATE
+);
+
+CREATE TABLE Creditos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cantidad INT,
+    valor FLOAT
+);
+
+CREATE TABLE Profesor (
+    id VARCHAR(50) PRIMARY KEY,
+    nombre VARCHAR(100),
+    especialidad VARCHAR(100),
+    departamento_nombre VARCHAR(100),
+    FOREIGN KEY (departamento_nombre) REFERENCES Departamento(nombre)
+);
+
+CREATE TABLE Horario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    dia VARCHAR(20),
+    horaInicio TIME,
+    horaFin TIME
+);
+
+CREATE TABLE Aula (
+    numero VARCHAR(50) PRIMARY KEY,
+    capacidad INT
+);
+
+CREATE TABLE Departamento (
+    nombre VARCHAR(100) PRIMARY KEY,
+    jefe VARCHAR(100)
+);
